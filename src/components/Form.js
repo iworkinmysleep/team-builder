@@ -4,14 +4,24 @@ import { useState } from 'react'
 
 
 
-function Form(props) {
+function Form({addNewTeamMate}) {
 
-  const [teamMate, setTeamMate] = useState({Name: ''})
+  const [teamMate, setTeamMate] = useState({name: '', email: '', role: ''})
+
+
 const handleChange = event => {
-  setTeamMate({value: event.target.value})
+  console.log(event.target.value);
+  setTeamMate({...teamMate, [event.target.name]: event.target.value})
   };
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    addNewTeamMate(teamMate);
+    setTeamMate({name: '', email: '', role: ''});
+  }
+
   return (
-    <form className= 'form'>
+    <form className= 'form' onSubmit= {submitForm}>
       <label htmlFor='name'>Name</label>
       <input id='name' type= 'text' placeholder= 'Enter Name' value= {teamMate.name} name= 'name' onChange={handleChange}></input>
       <label htmlFor='email'>Email</label>
